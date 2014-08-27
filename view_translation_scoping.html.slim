@@ -1,0 +1,20 @@
+////////////////////////////
+// View translation scoping
+////////////////////////////
+/
+/ Just like other code, views should be as DRY as possible. If you use i18n in your application,
+/ you know just how quickly things can get out of hand and how often you repeat certain scopes.
+/ Coming up with a good translation key strategy is a whole topic by itself but if you have figured
+/ it out, this little trick will be helpful for you.
+/
+/ ActiveSupport gives you `Object#with_options` (http://apidock.com/rails/Object/with_options)
+/ which is a kind of argument merging tool. It fits just perfectly with the i18n translate API.
+
+- with_options(scope: 'customers.show') do |i18n|
+  / same as t('customers.show.details')
+  h2 = i18n.t('details')
+  ul
+    / same as t('customers.show.list.item_1') etc.
+    li = i18n.t('list.item_1')
+    li = i18n.t('list.item_2')
+    li = i18n.t('list.item_3')
